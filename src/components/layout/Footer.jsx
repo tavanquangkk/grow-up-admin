@@ -1,8 +1,12 @@
 import React from 'react'
+import { theme } from 'antd';
 
 const Footer = () => {
+  const { token } = theme.useToken();
   return (
-    <div className='footer'> @2025 created by newbie 2025 trial</div>
+    <div style={{ color: token.colorTextSecondary }}>
+      ©2025 GrowUp Admin - Created by Newbie 2025
+    </div>
   )
 }
 

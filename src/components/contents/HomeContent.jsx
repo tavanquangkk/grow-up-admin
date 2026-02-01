@@ -1,114 +1,64 @@
-import { Button, Card, Col, Row } from 'antd'
-import React from 'react'
+import { Button, Card, Col, Row, Typography, Space } from 'antd';
+import React from 'react';
 import { useNavigate } from 'react-router';
+import { UserOutlined, BookOutlined, ToolOutlined } from '@ant-design/icons';
 import DashboardStats from '../DashboardStats';
+
+const { Title, Paragraph } = Typography;
 
 const HomeContent = () => {
     const navigate = useNavigate();
 
-    const cardStyle = {
-        borderRadius: '20px',
-        background: 'rgba(255, 255, 255, 0.8)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255, 255, 255, 0.3)',
-        boxShadow: '0 8px 24px rgba(120, 194, 173, 0.15)',
-        transition: 'all 0.3s ease',
-        overflow: 'hidden'
-    };
-
     return (
-        <div className='home-content' style={{
-            padding: '32px',
-            background: 'linear-gradient(135deg, #f8fdf9 0%, #f0f9f1 100%)',
-            minHeight: '100vh'
-        }}>
+        <div>
+            <Title level={2} style={{ marginBottom: 24 }}>ダッシュボード</Title>
+            
             {/* 統計情報カード */}
             <DashboardStats />
 
-            {/* システム管理セクション */}
-            <Row gutter={[24, 24]} style={{ marginTop: '48px' }}>
-                <Col xs={24}>
-                    <Card
-                        style={{
-                            ...cardStyle,
-                            background: 'linear-gradient(135deg, rgba(120, 194, 173, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%)'
-                        }}
-                        styles={{ body: { padding: '32px' } }}
-                    >
-                        <div style={{ textAlign: 'center' }}>
-                            <h2 style={{
-                                color: '#2d5a3d',
-                                marginBottom: '16px',
-                                fontSize: '24px',
-                                fontWeight: '600'
-                            }}>
-                                🌱 システム管理
-                            </h2>
-                            <p style={{
-                                color: '#52a86f',
-                                fontSize: '16px',
-                                marginBottom: '24px',
-                                lineHeight: '1.6'
-                            }}>
-                                管理者として、ユーザー、ワークショップ、スキルを効率的に管理できます。<br />
-                                各カードをクリックして詳細な管理画面にアクセスしてください。
-                            </p>
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                gap: '16px',
-                                flexWrap: 'wrap'
-                            }}>
-                                <Button
-                                    size="large"
-                                    style={{
-                                        background: 'linear-gradient(135deg, #78c2ad 0%, #66b397 100%)',
-                                        border: 'none',
-                                        borderRadius: '12px',
-                                        color: 'white',
-                                        fontWeight: '500',
-                                        padding: '12px 32px',
-                                        height: 'auto'
-                                    }}
-                                    onClick={() => navigate("/users")}
-                                >
-                                    👥 ユーザー管理
-                                </Button>
-                                <Button
-                                    size="large"
-                                    style={{
-                                        background: 'linear-gradient(135deg, #78c2ad 0%, #66b397 100%)',
-                                        border: 'none',
-                                        borderRadius: '12px',
-                                        color: 'white',
-                                        fontWeight: '500',
-                                        padding: '12px 32px',
-                                        height: 'auto'
-                                    }}
-                                    onClick={() => navigate("/workshops")}
-                                >
-                                    📚 ワークショップ管理
-                                </Button>
-                                <Button
-                                    size="large"
-                                    style={{
-                                        background: 'linear-gradient(135deg, #78c2ad 0%, #66b397 100%)',
-                                        border: 'none',
-                                        borderRadius: '12px',
-                                        color: 'white',
-                                        fontWeight: '500',
-                                        padding: '12px 32px',
-                                        height: 'auto'
-                                    }}
-                                    onClick={() => navigate("/skills")}
-                                >
-                                    🛠️ スキル管理
-                                </Button>
-                            </div>
-                        </div>
-                    </Card>
-                </Col>
-            </Row>
+            <div style={{ marginTop: 48 }}>
+                <Card bordered={false} style={{ boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)' }}>
+                    <div style={{ textAlign: 'center', padding: '24px 0' }}>
+                        <Title level={3} style={{ marginBottom: 16 }}>
+                            🌱 システム管理
+                        </Title>
+                        <Paragraph type="secondary" style={{ fontSize: 16, maxWidth: 600, margin: '0 auto 32px' }}>
+                            管理者として、ユーザー、ワークショップ、スキルを効率的に管理できます。<br />
+                            各機能へは以下のボタンから素早くアクセスできます。
+                        </Paragraph>
+                        
+                        <Space size="large" wrap justify="center">
+                            <Button
+                                type="primary"
+                                size="large"
+                                icon={<UserOutlined />}
+                                onClick={() => navigate("/users")}
+                                style={{ height: 48, paddingLeft: 32, paddingRight: 32 }}
+                            >
+                                ユーザー管理
+                            </Button>
+                            <Button
+                                type="primary"
+                                size="large"
+                                icon={<BookOutlined />}
+                                onClick={() => navigate("/workshops")}
+                                style={{ height: 48, paddingLeft: 32, paddingRight: 32 }}
+                            >
+                                ワークショップ管理
+                            </Button>
+                            <Button
+                                type="primary"
+                                size="large"
+                                icon={<ToolOutlined />}
+                                onClick={() => navigate("/skills")}
+                                style={{ height: 48, paddingLeft: 32, paddingRight: 32 }}
+                            >
+                                スキル管理
+                            </Button>
+                        </Space>
+                    </div>
+                </Card>
+            </div>
         </div>
     );
 };

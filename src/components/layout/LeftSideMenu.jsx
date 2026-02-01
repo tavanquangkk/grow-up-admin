@@ -1,82 +1,94 @@
-import { GroupOutlined, HomeOutlined, MailOutlined, SettingOutlined, ThunderboltOutlined, UserOutlined } from "@ant-design/icons";
+import { GroupOutlined, HomeOutlined, SettingOutlined, ThunderboltOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Menu } from "antd";
-import logoUrl from "../../assets/react.svg";
+import logoUrl from "../../assets/icons/logo.png";
+import { Link, useLocation } from "react-router";
 
-import { Link } from "react-router";
-import { handleLogin } from "../../api/auth_api";
-import { useState } from "react";
-
-const LeftSideMenu = (props) => {
-  const { setIsDarkMode, isDarkMode } = props;
-  const [itemKey, setItemKey] = useState("");
-  const { setUserNum, setWorkshopNum, setSkillNum, userNum } = props;
+const LeftSideMenu = ({ setIsDarkMode, isDarkMode, collapsed }) => {
+  const location = useLocation();
 
   const darkModeChange = () => {
     setIsDarkMode(!isDarkMode);
-    console.log("onClick method");
-  }
-  const changeItemKey = (item) => {
-    console.log(item.key);
-    setItemKey(item.key);
   };
+
+  const getSelectedKey = () => {
+    const path = location.pathname;
+    if (path === '/') return ['home'];
+    if (path.startsWith('/users')) return ['user'];
+    if (path.startsWith('/workshops')) return ['workshop'];
+    if (path.startsWith('/skills')) return ['skill'];
+    return [];
+  };
+
   const items = [
     {
-      label: `🏠 ホーム`,
+      label: <Link to="/">ホーム</Link>,
       key: 'home',
-      icon: <Link to={"/"}><HomeOutlined style={{ color: '#78c2ad' }} /></Link>,
+      icon: <HomeOutlined />,
     },
     {
-      label: '👥 ユーザー',
+      label: <Link to="/users">ユーザー</Link>,
       key: 'user',
-      icon: <Link to={"/users"}><UserOutlined style={{ color: '#78c2ad' }} /></Link>,
+      icon: <UserOutlined />,
     },
     {
-      label: '📚 勉強会',
+      label: <Link to="/workshops">勉強会</Link>,
       key: 'workshop',
-      icon: <Link to={"/workshops"}><GroupOutlined style={{ color: '#78c2ad' }} /></Link>,
+      icon: <GroupOutlined />,
     },
     {
-      label: '⚡ スキル',
+      label: <Link to="/skills">スキル</Link>,
       key: 'skill',
-      icon: <Link to={"/skills"}><ThunderboltOutlined style={{ color: '#78c2ad' }} /></Link>,
+      icon: <ThunderboltOutlined />,
     },
     {
-      label: '🌙 ダークモード',
+      label: 'ダークモード',
       key: 'setting',
-      icon: <Button
-        onClick={darkModeChange}
-        type="text"
-        style={{
-          border: 'none',
-          background: 'transparent',
-          color: '#78c2ad'
-        }}
-      >
-        <SettingOutlined />
-      </Button>,
+      icon: isDarkMode ? <span style={{ fontSize: '16px' }}>☀️</span> : <span style={{ fontSize: '16px' }}>🌙</span>,
+      onClick: darkModeChange,
     },
   ];
 
-
-  console.log(">>>CHECK item key", itemKey);
   return (
-    <div className="left-menu-block">
-      <Menu className="left-menu"
-        style={{ width: 256, height: 500 }}
-        selectedKeys={itemKey}
-        mode="vertical"
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <div style={{ 
+          height: 64, 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          borderBottom: '1px solid rgba(0,0,0,0.06)',
+          margin: '0 16px 16px 16px'
+      }}>
+         <img 
+            src={logoUrl} 
+            alt="Logo" 
+            style={{ 
+                height: 32, 
+                width: 'auto',
+                maxWidth: collapsed ? 32 : '100%',
+                transition: 'all 0.2s'
+            }} 
+         />
+         {!collapsed && (
+             <span style={{ 
+                 marginLeft: 12, 
+                 fontSize: 16, 
+                 fontWeight: 600, 
+                 color: 'var(--ant-color-text)',
+                 whiteSpace: 'nowrap',
+                 overflow: 'hidden'
+             }}>
+                 GrowUp
+             </span>
+         )}
+      </div>
+      
+      <Menu
+        mode="inline"
+        selectedKeys={getSelectedKey()}
         items={items}
-        onClick={
-          changeItemKey
-        }
-
-      >
-
-
-      </Menu>
-
-    </div>);
-
-  ;
+        style={{ borderRight: 0, background: 'transparent' }}
+      />
+    </div>
+  );
 };
 export default LeftSideMenu;

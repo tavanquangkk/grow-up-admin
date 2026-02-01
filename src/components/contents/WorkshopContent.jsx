@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import WorkshopTable from '../layout/WorkshopTable'
-import { Button, Modal } from 'antd'
+import { Button, Modal, Typography, Flex } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
+
+const { Title } = Typography;
 
 const WorkshopContent = () => {
     const [isShow, setIsShow] = useState(false);
@@ -11,12 +14,11 @@ const WorkshopContent = () => {
         setIsShow(false);
     }
     return (
-        <div className='form-table'>
-            <div className='table-header'>
-                <strong>勉強会一覧</strong>
-                <Button onClick={showModal} type='primary'>勉強会作成</Button>
-            </div>
-            <hr />
+        <div>
+            <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
+                <Title level={3} style={{ margin: 0 }}>勉強会一覧</Title>
+                <Button onClick={showModal} type='primary' icon={<PlusOutlined />}>勉強会作成</Button>
+            </Flex>
             <WorkshopTable />
             <Modal
                 title="勉強会作成"

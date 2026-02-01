@@ -182,7 +182,7 @@ const UserManagement = () => {
     ];
 
     return (
-        <div style={{ padding: '16px' }}>
+        <div>
             <div style={{
                 marginBottom: '16px',
                 display: 'flex',

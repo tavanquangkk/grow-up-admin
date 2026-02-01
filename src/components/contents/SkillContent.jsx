@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import SkillTable from '../layout/SkillTable'
-import '../../assets/styles/app.css'
-import { Button, Modal } from 'antd'
+import { Button, Modal, Typography, Flex } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
+
+const { Title } = Typography;
 
 const SkillContent = () => {
     const [isShow, setIsShow] = useState(false);
@@ -12,12 +14,11 @@ const SkillContent = () => {
         setIsShow(false);
     }
     return (
-        <div className='form-table'>
-            <div className='table-header'>
-                <strong>スキル一覧</strong>
-                <Button onClick={showModal} type='primary'>スキル作成</Button>
-            </div>
-            <hr />
+        <div>
+            <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
+                <Title level={3} style={{ margin: 0 }}>スキル一覧</Title>
+                <Button onClick={showModal} type='primary' icon={<PlusOutlined />}>スキル作成</Button>
+            </Flex>
             <SkillTable />
             <Modal
                 title="スキル作成"
