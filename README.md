@@ -1,39 +1,46 @@
-# Grow Up Admin
+# Grow Up Admin (Frontend)
 
-このプロジェクトは、ユーザー、スキル、およびワークショップを管理するためのシンプルな管理画面アプリケーションです。
-React と Ant Design を使用して構築されています。
+Grow Up プラットフォームの管理画面（Dashboard）です。React 19 と Vite を使用して構築されており、直感的でモダンな UI を提供します。
 
-## 主な機能
+## 🎨 特徴
+- **モダンな UI**: Ant Design (v5) を使用したクリーンで機能的なインターフェース。
+- **効率的な状態管理**: React Hooks と Context API を活用した認証状態の保持。
+- **セキュアな通信**: Axios インターセプターによる JWT トークンの自動リフレッシュ機能。
+- **SPA ルーティング**: React Router によるスムーズなページ遷移と Protected Route。
 
-- **ダッシュボード**: システム全体の統計情報を確認できます。
-- **ユーザー管理**: ユーザーの追加、編集、削除が可能です。
-- **スキル管理**: スキルの登録や編集を行えます。
-- **ワークショップ管理**: ワークショップ情報の管理ができます。
-
-## 使用技術
-
-- **Frontend**: React, Vite
-- **UI Library**: Ant Design
-- **Routing**: React Router
+## 🛠 使用技術
+- **Library**: React 19 (JavaScript)
+- **UI Framework**: Ant Design
+- **Build Tool**: Vite
 - **HTTP Client**: Axios
+- **Router**: React Router 7
+- **Auth**: JWT (LocalStorage / HttpOnly Cookie)
 
-## 開発環境のセットアップ
+## 🚀 開発とビルド
 
-以下のコマンドを実行して、プロジェクトをローカル環境で起動してください。
-
+### インストール
 ```bash
-# 依存関係のインストール
 npm install
+```
 
-# 開発サーバーの起動
+### 開発モード
+```bash
 npm run dev
 ```
 
-ブラウザで `http://localhost:5173` (またはコンソールに表示されるURL) にアクセスして確認してください。
+### ビルド
+```bash
+npm run build
+```
 
-## 画面一覧:
+## 📦 デプロイ構成
+本プロジェクトは Docker 化されており、ビルド後の静的ファイルは **Nginx** によって配信されます。
+Nginx はリバースプロキシとしても機能し、`/api` へのリクエストを自動的にバックエンドサーバーへ転送することで、CORS 問題を解決しています。
 
-![](./src/readme_screenshots/dashboard.png)
-![](./src/readme_screenshots/users.png)
-![](./src/readme_screenshots/workshops.png)
-![](./src/readme_screenshots/skills.png)
+## 📂 ディレクトリ構成
+- `src/api/`: Axios インスタンスと各 API 通信ロジック。
+- `src/components/`: 再利用可能な UI コンポーネント（Table, Modal など）。
+- `src/context/`: 認証（AuthContext）やテーマ設定。
+- `src/pages/`: 各画面のメインコンポーネント。
+- `src/layout/`: ヘッダー、サイドメニューなどの全体レイアウト。
+- `src/router/`: ルーティング設定。
